@@ -13,10 +13,16 @@ const server = http.createServer(async (req, res) => {
             // send html file
             // res.end("hello from node js server")
 
-            const data = await readFile(`${__dirname}/index.html`)
+            const data = await readFile(`${__dirname}/public/index.html`)
             res.writeHead(200, { "Content-Type": "text/html" })
             res.end(data)
-        } else if (req.url === "/json") {
+        }
+        else if (req.url === "/style.css") {
+            const data = await readFile(`${__dirname}/public/style.css`)
+            res.writeHead(200, { "Content-Type": "text/css" })
+            res.end(data)
+        }
+        else if (req.url === "/json") {
             // fetch users form os
             const data = await readFile(`${__dirname}/name.json`)
             res.writeHead(200, { "Content-Type": "application/json" })
@@ -25,7 +31,7 @@ const server = http.createServer(async (req, res) => {
             fetch('https://jsonplaceholder.typicode.com/users')
                 .then(response => response.json())
                 .then(json => {
-                    console.log(JSON.stringify(json))
+                    // console.log(JSON.stringify(json))
                     res.writeHead(200, { "Content-Type": "application/json" })
                     res.end(JSON.stringify(json))
                 })
